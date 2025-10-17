@@ -1,35 +1,67 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+export default function App() {
+  return(
+    <div className='App'>
+<TipCalculator/>
+    </div>
   )
 }
+function TipCalculator(){
+    const [bill,setBill] = useState("");
+    const [percentage1,setPercentage1] = useState(0);
+    const [percentage2,setPercentage2] = useState(0);
+    const tip = bill * ((percentage1 + percentage2) / 2 / 100);
+    function handleReset(){
+      setBill("");
+      setPercentage1(0);
+      setPercentage2(0);
+    }
+  return(
+    <div>
+<BillInput bill={bill} onSetBill={setBill}/>
+<SelectPercentage percentage={percentage1} onSelect = {setPercentage1}>How did you like the service?</SelectPercentage>
+<SelectPercentage percentage={percentage2} onSelect = {setPercentage2}>How did your friend like the service?</SelectPercentage>
 
-export default App
+{bill > 0 && (<><Output bill={bill}  tip={tip}/>
+<Reset onReset={handleReset}/>
+</>)}
+    </div>
+  )
+
+}
+
+function BillInput({bill , onSetBill}){
+
+ return <div>
+    <label>how much was the bill ?</label>
+    <input type="text"  placeholder="Bill value" value={bill} onChange={(e)=> onSetBill(Number(e.target.value))}/>
+  </div>}
+function SelectPercentage({children,onSelect,percentage}){
+return(
+  <div>
+    <label>{children}</label>
+    <select value = {percentage} onChange={(e)=> onSelect(Number(e.target.value))}>
+      <option value ="0">dissatisfied (0%)</option>
+      <option value ="5">It was okay (5%)</option>
+      <option value ="10">It was Good (10%)</option>
+      <option value ="20">Absolutely amazing!(20%)</option>
+
+    </select>
+  </div>
+)
+}
+
+function Output({bill,tip}){
+  return(
+    <h3>You Pay {bill + tip} (${bill} + ${tip} tip)</h3>
+  )
+
+}
+
+function Reset({onReset}){
+  return <button onClick={onReset}>Reset</button>
+ 
+}
