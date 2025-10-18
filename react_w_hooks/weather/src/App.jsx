@@ -1,18 +1,37 @@
 import React from "react";
 
-class Counter extends React.Component{
-  constructor(props){
-    super(props)
+class Counter extends React.Component {
+  constructor(props) {
+    super(props);
 
-    this.state = { count:5};
+    this.state = { count: 5 };
 
+    this.handleDecrement = this.handleDecrement.bind(this);
+    this.handleIncrement = this.handleIncrement.bind(this);
   }
-  render(){
-    return <div>
-      <button>-</button>
-      <span>{this.state.count}</span>
-      <button>+</button>
-    </div>
+
+  handleDecrement() {
+    this.setState((curState) => ({ count: curState.count - 1 }));
+  }
+
+  handleIncrement() {
+    this.setState((curState) => ({ count: curState.count + 1 }));
+  }
+
+  render() {
+    const date = new Date("June 21, 2027");
+    date.setDate(date.getDate() + this.state.count);
+
+    return (
+      <div>
+        <button onClick={this.handleDecrement}>-</button>
+        <span> {this.state.count} </span>
+        <button onClick={this.handleIncrement}>+</button>
+
+       
+        <p>{date.toDateString()}</p>
+      </div>
+    );
   }
 }
 
