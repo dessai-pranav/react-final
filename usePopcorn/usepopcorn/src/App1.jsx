@@ -77,15 +77,17 @@ function handleDeletedwatched(id){
 function handleAddWatch(movie){
   setWatched(watched=>[...watched,movie])
 }
+
   useEffect(
     function () {
+      const controller = new AbortController();
       async function fetchMovies() {
         try {
           setIsLoading(true);
           setError("");
 
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,{signal:controller.signal}
           );
 
           if (!res.ok)
@@ -110,9 +112,12 @@ function handleAddWatch(movie){
         setMovies([]);
         setError("");
         return;
-      }
-
+      }handleCloseMovie();
       fetchMovies();
+      return function(){
+        controller.abort();
+
+      }
     },
     [query]
   );
@@ -250,7 +255,18 @@ function Moviedetails({ selectedId, onCloseMovie, onAddWatched ,watched}) {
     Director: director = "",
     Genre: genre = "",
   } = movie;
-
+useEffect(function(){
+  function callBack(e){
+    if(e.code === 'Escape'){
+      onCloseMovie();
+    }
+  }
+  document.addEventListener('keydown',callBack
+  );
+  return function (){
+    document.removeEventListener('keydown',callBack)
+  }
+},[onCloseMovie])
   useEffect(() => {
     async function getMovieDetails() {
       try {
@@ -269,7 +285,11 @@ function Moviedetails({ selectedId, onCloseMovie, onAddWatched ,watched}) {
 
   useEffect(function(){
     if(!title) return 
-    document.title = `Movie | ${title}`},[title]);
+    document.title = `Movie | ${title}`;
+  return function(){
+    document.title = "usePopcorn"
+  
+  }},[title]);
 
   function handleAdd() {
     const newWatchedMovie = {
