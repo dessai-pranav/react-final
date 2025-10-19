@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
+
 :root {
   --color-darkest: #343a40;
   --color-dark: #495057;
@@ -7,8 +9,6 @@
   --color-theme: #1098ad;
   --color-accent: #ffa94d;
 }
-
-@import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
 
 * {
   margin: 0;
@@ -25,7 +25,7 @@ html {
 body {
   min-height: 100vh;
   color: var(--color-light);
-  background-color: var(--color-darkest);
+  background-color: black;
   padding: 3.2rem;
 }
 
@@ -110,6 +110,7 @@ progress {
   background-color: var(--color-medium);
   border-radius: 100px;
 }
+
 ::-webkit-progress-value {
   background-color: var(--color-theme);
   border-radius: 100px;
@@ -161,6 +162,7 @@ progress {
   border: 2px solid var(--color-theme);
   color: var(--color-light);
 }
+
 .btn-option.wrong {
   background-color: var(--color-accent);
   border: 2px solid var(--color-accent);
@@ -199,7 +201,6 @@ progress {
   align-items: center;
   margin-top: 4rem;
   gap: 1.6rem;
-
   color: var(--color-medium);
   font-size: 1.4rem;
 }
