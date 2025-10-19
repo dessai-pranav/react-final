@@ -1,20 +1,31 @@
 import fs from "fs";
 import express from "express";
 import cors from "cors";
+import path from "path";
 
 const app = express();
 app.use(cors());
 
-// Read the JSON file
+// Read JSON
 const data = JSON.parse(fs.readFileSync("./src/data/questions.json", "utf8"));
 
-// Route to send questions
-app.get("/questions", (req, res) => {
-  res.json(data);
-  console.log(data);
+// Root route
+app.get("/", (req, res) => {
+  res.send("Server is running. Go to /questions to see data.");
 });
 
-// Start the server
+// Questions route
+app.get("/questions", (req, res) => {
+  res.json(data);
+});
+
+// Favicon route (optional)
+app.get("/favicon.ico", (req, res) => {
+  // eslint-disable-next-line no-undef
+  res.sendFile(path.join(__dirname, "favicon.ico"));
+});
+
+// Start server
 const PORT = 8000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);
