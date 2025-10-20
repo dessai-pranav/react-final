@@ -51,6 +51,8 @@ function reducer(state, action) {
 case 'nextQuestion': return{...state,index:state.index+1,answer:null}
 
 case 'finish': return {...state,status:"finish",highscore:state.points>state.highscorestate ? state.points : state.highscore};
+case 'restart': return {...initialState,question:state.questions,status:"ready"}
+
     default:
       throw new Error("Unknown action type");
   }
@@ -99,7 +101,7 @@ const maxPossiblePoints = questions.reduce((prev, cur) => prev + cur.points, 0);
             answer={answer}
           /> <NextButton dispatch={dispatch} answer={answer} index={index} numQuestions={numQuestions}/></>
         )}
-        {status === 'finish' && <FinishedScreen points={ points} maxPossiblePoints={maxPossiblePoints} highscore={highscore}/>}
+        {status === 'finish' && <FinishedScreen points={ points} maxPossiblePoints={maxPossiblePoints} highscore={highscore} dispatch={dispatch}/>}
       </Main>
     </div>
   );
