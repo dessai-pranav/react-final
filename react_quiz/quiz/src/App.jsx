@@ -8,6 +8,7 @@ import StartScreen from "./StartScreen";
 import Question from "./Question";
 import "./index.css";
 import NextButton from "./NextButton";
+import Progress from "./Progress";
 
 // Initial state
 const initialState = {
@@ -52,7 +53,7 @@ case 'nextQuestion': return{...state,index:state.index+1,answer:null}
 }
 
 export default function App() {
-  const [{ questions, status, index, answer }, dispatch] = useReducer(
+  const [{ questions, status, index, answer,points }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -73,6 +74,8 @@ export default function App() {
 
   const numQuestions = questions.length;
   console.log("numQuestions:", numQuestions);
+const maxPossiblePoints = questions.reduce((prev, cur) => prev + cur.points, 0);
+
 
   return (
     <div className="app">
@@ -85,6 +88,7 @@ export default function App() {
         )}
         {status === "active" && (
           <>
+          <Progress index={index} numQuestions={numQuestions} points={points} maxPossiblePoints={maxPossiblePoints} answer={answer}/>
           <Question
             question={questions[index]}
             dispatch={dispatch}
