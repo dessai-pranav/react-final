@@ -1,7 +1,9 @@
+import PageNav from "../components/PageNav"
+
 function Product() {
     return (
-        <div>
-            products
+        <div><PageNav/>
+           <h1>products</h1> 
         </div>
     )
 }

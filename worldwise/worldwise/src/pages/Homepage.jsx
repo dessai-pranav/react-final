@@ -1,10 +1,16 @@
+import {Link} from "react-router-dom"
+import PageNav from "../components/PageNav"
+import AppNav from "../components/AppNav"
 function Homepage() {
     return (
         <div>
-           <h1>worldwise</h1>
-           <link to ='/pricing'>pricing</link>
-            <link to = '/product'>pricing</link>
-             <link to ='/PageNotFound'>pricing</link>
+            <PageNav/>
+            <AppNav/>
+           <h1 >worldwise</h1>
+           <Link to ='/pricing'>pricing</Link>
+            <Link to = '/product'>pricing</Link>
+             <Link to ='/PageNotFound'>pricing</Link>
+             
         </div>
     )
 }
