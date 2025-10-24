@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom"
 import AppNav from "./AppNav"
 import Logo from "./Logo"
 import styles from "./Sidebar.module.css"
@@ -6,9 +7,9 @@ function Sidebar() {
         <div className={styles.sidebar}>
             <Logo/>
             <AppNav/>
-            <p> List Of Cities</p>
+         <Outlet/>
             <footer className = {styles.footer}>
-                <p className={StyleSheet.copyright}>
+                <p className={styles.copyright}>
                     &copy; Copyright {new Date().getFullYear()} by WorldWise Inc.
                 </p>
             </footer>
