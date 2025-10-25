@@ -4,7 +4,7 @@ import Message from "./Message"
 import CountryItem from "./CountryItem"
 import { useCities } from '../contexts/CitiesContext'
 function CountriesList() {
-  const [cities,isloading] = useCities();
+  const {cities,isloading} = useCities();
     if(isloading) return <Spinner/>
     if(!cities.length) return <Message message='Add your first city by clicking on the Map'/>
    const countries = cities.reduce((arr, city) => {
