@@ -11,6 +11,7 @@ import { useEffect, useState } from "react"
 import CountryList from "./components/CountryList"
 import City from "./components/City"
 import Form from "./components/Form"
+import { CitiesProvider } from "./contexts/CitiesContext"
 function App() {
   const [cities,setCities] = useState([])
   const [isloading,setIsLoading]= useState(false)  
@@ -31,7 +32,7 @@ function App() {
     }
   ,[])
   return (
-  
+  <CitiesProvider>
   
   <BrowserRouter>
   
@@ -42,9 +43,9 @@ function App() {
 <Route path ="pricing" element = {<Pricing/>}/>
 <Route path ="app" element = {<AppLayout/>}>
 <Route index element = {<Navigate replace to ="cities"/>}/>
-<Route path = 'cities' element = {<CityList cities = {cities} isloading={isloading}/>}/>
+<Route path = 'cities' element = {<CityList />}/>
 <Route path="cities/:id" element ={<City/>}/>
-<Route path = 'countries' element = {<CountryList cities={cities} isloading={isloading}/>}/>
+<Route path = 'countries' element = {<CountryList />}/>
 
 <Route path = 'form' element = {<Form/>}/>
 </Route>
@@ -53,7 +54,7 @@ function App() {
 <Route path="*" element = {<PageNotFound/>}/>
   </Routes>
   </BrowserRouter>
-
+</CitiesProvider>
 
   )
 }
