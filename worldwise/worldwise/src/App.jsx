@@ -1,19 +1,26 @@
 import { BrowserRouter,Navigate,Route,Routes} from "react-router-dom"
-import Product from "./pages/Product"
-import Pricing from "./pages/Pricing"
-import Homepage from "./pages/Homepage"
-import PageNotFound from "./pages/PageNotFound"
-import AppLayout from "./pages/AppLayout"
 import "./index.css"
+import { lazy, Suspense, useEffect, useState } from "react"
 import Login from "./pages/Login"
 import CityList from "./components/CityList"
-import { useEffect, useState } from "react"
+import SpinnerFullPage from "./components/SpinnerFullPage"
+
 import CountryList from "./components/CountryList"
 import City from "./components/City"
 import Form from "./components/Form"
 import { CitiesProvider } from "./contexts/CitiesContext"
 import { AuthProvider } from "./contexts/FakeAuthContext"
 import ProtectedRoute from "./pages/ProtectedRoute"
+//import Product from "./pages/Product"
+//import Pricing from "./pages/Pricing"
+//import Homepage from "./pages/Homepage"
+//import PageNotFound from "./pages/PageNotFound"
+//import AppLayout from "./pages/AppLayout"
+const Homepage = lazy(()=>import("./pages/Homepage"))
+const Product = lazy(()=>import("./pages/Product"))
+const PageNotFound = lazy(()=>import("./pages/PageNotFound"))
+const Pricing = lazy(()=>import("./pages/Pricing"))
+const AppLayout = lazy(()=>import("./pages/AppLayout"))
 
 function App() {
   const [cities,setCities] = useState([])
@@ -40,7 +47,7 @@ function App() {
   <CitiesProvider>
   
   <BrowserRouter>
-  
+  <Suspense fallback={<SpinnerFullPage/>}>
   <Routes>
 
     <Route path ="/" element = {<Homepage/>}/>
@@ -58,6 +65,7 @@ function App() {
 
 <Route path="*" element = {<PageNotFound/>}/>
   </Routes>
+  </Suspense>
   </BrowserRouter>
 </CitiesProvider>
 </AuthProvider>

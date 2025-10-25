@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated } = useAuth();
-  const navigate = useNavigate(); // ✅ must call the hook
-
+  const navigate = useNavigate(); 
   useEffect(() => {
     if (!isAuthenticated) navigate("/", { replace: true });
   }, [isAuthenticated, navigate]);
