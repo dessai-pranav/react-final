@@ -45,7 +45,10 @@ function CitiesProvider({children}){
     
       ,[])
     async function getCity(id)
-       {         dispatch({type:"loading"})
+   
+       {   
+         if(id===currentCity.id) return ;
+        dispatch({type:"loading"})
             try{
                 
                 const res = await fetch(`${BASE_URL}/cities/${id}`)
