@@ -3,9 +3,10 @@ import { Form, redirect, useActionData, useNavigation } from 'react-router-dom';
 import { createOrder } from '../../services/apiRestaurant';
 import Button from '../../ui/Button';
 import {useSelector} from "react-redux";
-import {clearCart, getCart} from "../cart/cartSlice.js";
+import {clearCart, getCart, getTotalCartPrice} from "../cart/cartSlice.js";
 import EmptyCart from "../cart/EmptyCart.jsx";
 import store from "../../store.js";
+import {formatCurrency} from "../../utils/helpers.js";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -44,8 +45,11 @@ function CreateOrder() {
 
   const formErrors = useActionData();
 
-  // const [withPriority, setWithPriority] = useState(false);
+   const [withPriority, setWithPriority] = useState(false);
   const cart = useSelector(getCart);
+  const totalCartPrice = useSelector(getTotalCartPrice);
+  const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
+  const totalPrice = totalCartPrice + priorityPrice
 if(!cart.length) return <EmptyCart/>
   return (
     <div className="px-4 py-6">
@@ -88,8 +92,8 @@ if(!cart.length) return <EmptyCart/>
             type="checkbox"
             name="priority"
             id="priority"
-            // value={withPriority}
-            // onChange={(e) => setWithPriority(e.target.checked)}
+            value={withPriority}
+            onChange={(e) => setWithPriority(e.target.checked)}
           />
           <label htmlFor="priority" className="font-medium">
             Want to yo give your order priority?
@@ -99,7 +103,7 @@ if(!cart.length) return <EmptyCart/>
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
           <Button disabled={isSubmitting} type="primary">
-            {isSubmitting ? 'Placing order....' : 'Order now'}
+            {isSubmitting ? 'Placing order....' : `order now ${formatCurrency(totalPrice)}`}
           </Button>
         </div>
       </Form>
@@ -114,7 +118,7 @@ export async function action({ request }) {
   const order = {
     ...data,
     cart: JSON.parse(data.cart),
-    priority: data.priority === 'on',
+    priority: data.priority === 'true',
   };
 
   const errors = {};
