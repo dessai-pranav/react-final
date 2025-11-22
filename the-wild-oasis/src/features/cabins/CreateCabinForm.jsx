@@ -61,7 +61,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
     }
 
     return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)} type = {onCloseModal ? 'modal' : 'regular'  }>
             <FormRow label="Cabin name" error={errors?.name?.message}>
                 <Input
                     type="text"
@@ -123,7 +123,7 @@ function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
             </FormRow>
 
             <FormRow>
-                <Button type="reset" variation="secondary">
+                <Button type="reset" variation="secondary" onClick = {() => onCloseModal?.()}>
                     Cancel
                 </Button>
                 <Button disabled={isLoading}>

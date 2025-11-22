@@ -1,13 +1,12 @@
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {getCabins} from "../services/apiCabins.js";
 import CabinTable from "../features/cabins/CabinTable.jsx";
-import Button from "../ui/Button.jsx";
-import CreateCabinForm from "../features/cabins/CreateCabinForm.jsx";
+
+import AddCabin from "../features/cabins/AddCabin.jsx";
 
 function Cabins() {
-    const [showForm, setShowForm] = useState(false);
     useEffect(function()  {
         getCabins().then((data) => console.log(data));
 
@@ -20,10 +19,7 @@ function Cabins() {
     </Row>
           <Row type = "vertical">
               <CabinTable/>
-              <Button variation="primary" onClick={()=> setShowForm((show) => !show)}>
-                  Add New Cabin
-              </Button>
-              {showForm && <CreateCabinForm/>}
+              <AddCabin/>
           </Row>
       </>
   );
