@@ -14,6 +14,17 @@ const StyledAppLayout = styled.div`
         "sidebar main";
     overflow: hidden;
 `;
+const Container = styled.div`
+max-width: 120rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+`;
+
+
+
+
 
 const Main = styled.main`
     grid-area: main;
