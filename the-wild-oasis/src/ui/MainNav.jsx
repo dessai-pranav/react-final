@@ -54,7 +54,7 @@ function MainNav() {
             <li><StyledNavLink to ="/bookings"><HiOutlineCalendarDays /> <span>Bookings</span></StyledNavLink></li>
             <li><StyledNavLink to ="/cabins"><HiOutlineHomeModern/><span>cabins</span></StyledNavLink></li>
             <li><StyledNavLink to ="/users"><HiOutlineUsers /><span>Users</span></StyledNavLink></li>
-            <li><StyledNavLink to ="/settings"><HiOutlineCog6Tooth /><span>Booking</span></StyledNavLink></li>
+            <li><StyledNavLink to ="/settings"><HiOutlineCog6Tooth /><span>settings</span></StyledNavLink></li>
         </NavList></nav>
     )
 }
