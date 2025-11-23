@@ -10,6 +10,8 @@ import {HiSquare2Stack} from "react-icons/hi2";
 import {HiPencil, HiTrash} from "react-icons/hi";
 import {useCreateCabin} from "./useCreateCabin.js";
 import useDeleteCabin from "./useDeleteCabin.js";
+import Modal from "../../ui/Modal.jsx";
+import ConfirmDelete from "../../ui/ConfirmDelete.jsx";
 
 const TableRow = styled.div`
   display: grid;
@@ -78,7 +80,7 @@ const queryClient = useQueryClient();
         onError: err => toast.error(err.message)
     })
     return (
-    <>
+
         <TableRow role = "row">
         <Img src = {image}/>
         <Cabin>{name}</Cabin>
@@ -87,11 +89,32 @@ const queryClient = useQueryClient();
         <Discount>{formatCurrency(discount)}</Discount>
 
         <div><Button disabled={isCreating} onClick={handleDuplicate} ><HiSquare2Stack/></Button>
-            <Button onClick={()=> setShowForm((show) => !show) }> <HiPencil/> </Button>
-        <Button  variation="primary" onClick={()=> mutate(cabinId) } disabled={isDeletingg} > <HiTrash/> </Button>
+            <Modal>
+                <Modal.Open opens="edit">
+            <Button >
+                <HiPencil/>
+            </Button>
+                </Modal.Open>
+                <Modal.Window name = 'edit'>
+                    <CreateCabinForm cabinToEdit={cabin}/>
+                </Modal.Window>
+
+                <Modal.Open opens='delete'>
+        <Button  variation="primary"   >
+            <HiTrash/>
+        </Button>
+                </Modal.Open >
+                <Modal.Window name = 'delete'>
+                    <ConfirmDelete
+                        resourceName='cabins'
+                        disabled={isDeletingg}
+                        onConfirm={()=> mutate(cabinId)}
+                    />
+                </Modal.Window>
+            </Modal>
         </div>
     </TableRow>
-    {showForm && <CreateCabinForm cabinToEdit={cabin}/>}
-        </>)
+
+    )
 }
 export default CabinRow;
