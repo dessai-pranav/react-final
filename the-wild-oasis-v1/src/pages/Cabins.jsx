@@ -5,6 +5,7 @@ import {getCabins} from "../services/apiCabins.js";
 import CabinTable from "../features/cabins/CabinTable.jsx";
 
 import AddCabin from "../features/cabins/AddCabin.jsx";
+import CabinTableOperations from "../features/cabins/CabinTableOperations.jsx";
 
 function Cabins() {
     useEffect(function()  {
@@ -15,7 +16,7 @@ function Cabins() {
       <>
     <Row type="horizontal">
       <Heading as="h1">All cabins</Heading>
-      <p>filter / sort</p>
+      <CabinTableOperations />
     </Row>
           <Row type = "vertical">
               <CabinTable/>
