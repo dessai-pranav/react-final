@@ -1,6 +1,6 @@
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {useSearchParams} from "react-router-dom";
-import {getBookings} from "../../services/apiBookings.js";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+import { getBookings } from "../../services/apiBookings.js";
 import {PAGE_SIZE} from "../../ui/constants.js";
 
 
@@ -16,10 +16,12 @@ export function useBookings() {
             : { field: "status", value: filterValue };
 
     // SORT
-    const sortBy = searchParams.get("sortBy") || "startDate-desc";
+    const sortByRaw = searchParams.get("sortBy") || "startDate-desc";
+    const [field, direction] = sortByRaw.split("-");
+    const sortBy = { field, direction };
 
     // PAGINATION
-    const page = !searchParams.get('page') ? 1 : Number(searchParams.get('page'));
+    const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
     // QUERY
     const {
